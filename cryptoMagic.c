@@ -37,9 +37,15 @@ int main(int argc, char* argv[]) {
     if (mode == 1) {
         //here is where teh encrypting code goes
     }
-    else (mode == 0) {
+    else if (mode == 0) {
         //here is where the decrypting code goes
     }
+
+	else {
+		printf("Error Invalid entry '%s'", argv[1]);
+		printfUsage();
+		return 1;       //lets show user what he did wrong
+	}
     return 0;
 }
 
