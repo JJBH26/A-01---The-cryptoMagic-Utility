@@ -1,3 +1,12 @@
+#
+#   FILE          : Makefile
+#   PROJECT       : cryptoMagic - A1
+#   PROGRAMMER    : Valentyn, Juan Jose, Lukas, Warren
+#   FIRST VERSION : 01/15/2025
+#   DESCRIPTION   :
+#      TTis is the Makefile which puts all the source codes together
+#		and compile it into the executable file
+#
 # Compiler and flags
 CC = gcc
 CFLAGS = -Wall -Iinc  # Include the inc directory for header files
