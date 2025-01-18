@@ -148,6 +148,7 @@ void decryptFile(const char* inputFileName) {
         return;
     }
 
+
 	char hexPair[3];                                            // We are going to store the hex pair in this variable (the hex pair is used to convert the hex to decimal)
 	hexPair[2] = '\0';                                          // We are going to add a null terminator to the end of the string     
 	int c;
