@@ -15,11 +15,14 @@ int main(int argc, char* argv[]) {
     // neither encrypt or decrypt its set to encrypting
     char* fileName = NULL;
 
-    if (argc == 2) {
+	if (argc == 2 && strcmp(argv[1], "--encrypt") != 0 && strcmp(argv[1], "--decrypt") != 0) {
+        
         fileName = argv[1];
     }
+
     else if (argc == 3) {
-        if (strcmp(argv[1], "--encrypt") == 0) {
+        if (strcmp(argv[1], "--encrypt") == 0)
+        {
             mode = 1; //This line doesnt really do anything its just there to clarify
         }
         else if (strcmp(argv[1], "--decrypt") == 0) {
@@ -33,12 +36,20 @@ int main(int argc, char* argv[]) {
         fileName = argv[2];
     }
 
+    if (fileName == NULL) {
+        printf("Error: No file name entered\n");
+        printfUsage();
+        return 1;
+    }
+
     //Im just putting this for now but you guys have to add the logic
     if (mode == 1) {
         //here is where teh encrypting code goes
+		printf("Encrypting %s\n", fileName);
     }
     else if (mode == 0) {
         //here is where the decrypting code goes
+		printf("Decrypting %s\n", fileName);
     }
 
 	else {
