@@ -18,7 +18,7 @@
  *     none.
  */
 void encryptFile(const char* inputFileName) {
-    char outputFileName[256];
+    char outputFileName[MAX_FILE_PATH_LENGTH];
 	replaceExtension(inputFileName, ".crp", outputFileName);        // the first step is to replace the extension of the file. CRP
 
 	FILE* inputFile = fopen(inputFileName, "r");                    // open the file in read mode
@@ -38,7 +38,7 @@ void encryptFile(const char* inputFileName) {
         return;
     }
 
-	char line[121];                                                 // 120 characters + null terminator this is were the fun is going to happen
+	char line[MAX_LINE_LENGTH];                                                 // 120 characters + null terminator this is were the fun is going to happen
 	while (fgets(line, sizeof(line), inputFile)) {                  // STEP 1: we are going to read the file line by line   
 		for (int i = 0; line[i] != '\0'; i++) {					    // STEP 2: we are going to read the line character by character so we can encrypt each character
 			char c = line[i];									    // STEP 3: we are going to store the character in a variable I prefer it this way
@@ -49,9 +49,9 @@ void encryptFile(const char* inputFileName) {
                 fputc('\n', outputFile);
             }
 			else {													// STEP 6: if the character is not a tab or a new line we are going to encrypt it (OFC)
-				int outChar = c - 16;                               // STEP 7: we are going to subtract 16 from the character in the ASCII value   
-				if (outChar < 32) {								    // STEP 8: if the character is less than 32 we are going to add 144 to it so we have a standard ASCII encryption
-					outChar = (outChar - 32) + 144;                 // We are making sure that the character is in the printable range so we dont have headaches later
+				int outChar = c - SUBTRACT;                               // STEP 7: we are going to subtract 16 from the character in the ASCII value   
+				if (outChar < MIN) {								    // STEP 8: if the character is less than 32 we are going to add 144 to it so we have a standard ASCII encryption
+					outChar = (outChar - MIN) + WRAP_OFFSET;                 // We are making sure that the character is in the printable range so we dont have headaches later
                 }
 				fprintf(outputFile, "%02X", outChar);			    // STEP 9: we are going to print the character in hex format
             }

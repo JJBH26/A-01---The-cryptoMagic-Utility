@@ -21,17 +21,17 @@ int main(int argc, char* argv[]) {
     // neither encrypt or decrypt its set to encrypting
     char* fileName = NULL;
 
-	if (argc == 2 && strcmp(argv[1], "--encrypt") != 0 && strcmp(argv[1], "--decrypt") != 0) {
+	if (argc == 2 && strcmp(argv[1], "-encrypt") != 0 && strcmp(argv[1], "-decrypt") != 0) {
         
         fileName = argv[1];
     }
 
     else if (argc == 3) {
-        if (strcmp(argv[1], "--encrypt") == 0)
+        if (strcmp(argv[1], "-encrypt") == 0)
         {
             mode = 1; //This line doesnt really do anything its just there to clarify
         }
-        else if (strcmp(argv[1], "--decrypt") == 0) {
+        else if (strcmp(argv[1], "-decrypt") == 0) {
             mode = 0; // This just puts it into the decrypting mode
         }
         else {
@@ -73,9 +73,9 @@ int main(int argc, char* argv[]) {
  *     none.
  */
 void printfUsage() {
-    printf("How to use it: cryptoMagic [--encrypt or --decrypt] <filename>\n");
-    printf("  --encrypt   Encrypt the input file (this would also be the default)\n");
-    printf("  --decrypt   Decrypt the input file\n");
+    printf("How to use it: cryptoMagic [-encrypt or -decrypt] <filename>\n");
+    printf("  -encrypt   Encrypt the input file (this would also be the default)\n");
+    printf("  -decrypt   Decrypt the input file\n");
 }
 
 

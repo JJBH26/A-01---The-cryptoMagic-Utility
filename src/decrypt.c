@@ -19,7 +19,7 @@
  *     none.
  */
 void decryptFile(const char* inputFileName) {
-	char outputFileName[256];                                   // We are going to create a new file with the extension .txt
+	char outputFileName[MAX_FILE_PATH_LENGTH];                                   // We are going to create a new file with the extension .txt
 	replaceExtension(inputFileName, ".txt", outputFileName);    // dont forget to replace the extension
 
     FILE* inputFile = fopen(inputFileName, "r");
@@ -55,17 +55,17 @@ void decryptFile(const char* inputFileName) {
 				break;
 			}
 
-			int outChar = (int)strtol(hexPair, NULL, 16);	   // We are going to convert the hex pair to a decimal value
+			int outChar = (int)strtol(hexPair, NULL, SUBTRACT);	   // We are going to convert the hex pair to a decimal value
 
 
 			// In this whole part we are just disconverting back what we did in the encryption method
-			outChar += 16;
-			if (outChar > 127) {
-				outChar = (outChar - 144) + 32;
+			outChar += SUBTRACT;
+			if (outChar > MAX) {
+				outChar = (outChar - WRAP_OFFSET) + MIN;
 			}
 
 			// Check if the character is printable If it is we are going to print it else we are going to ignore it
-			if (outChar >= 32 && outChar <= 126) { // Printable ASCII range
+			if (outChar >= MIN && outChar <= MAX) { // Printable ASCII range
 				fputc(outChar, outputFile);
 			}
 		}

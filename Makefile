@@ -7,39 +7,28 @@
 #      TTis is the Makefile which puts all the source codes together
 #		and compile it into the executable file
 #
-# Compiler and flags
-CC = gcc
-CFLAGS = -Wall -Iinc  # Include the inc directory for header files
 
-# Directories
-OBJDIR = obj
-SRCDIR = src
-INCDIR = inc
-BINDIR = bin
+# FINAL BINARY Target
+./bin/cryptoMagic : ./obj/cryptoMagic.o ./obj/encrypt.o ./obj/decrypt.o
+	cc ./obj/cryptoMagic.o ./obj/encrypt.o ./obj/decrypt.o -o ./bin/cryptoMagic
 
-# Object files
-OBJ = $(OBJDIR)/cryptoMagic.o $(OBJDIR)/decrypt.o $(OBJDIR)/encrypt.o
-EXEC = $(BINDIR)/cryptoMagic
+# =======================================================
+#                     Dependencies
+# =======================================================
+./obj/cryptoMagic.o : ./src/cryptoMagic.c ./inc/cryptoMagic.h
+	cc -c ./src/cryptoMagic.c -o ./obj/cryptoMagic.o 
 
-# Default target
-all: $(EXEC)
+./obj/encrypt.o : ./src/encrypt.c ./inc/cryptoMagic.h
+	cc -c ./src/encrypt.c -o ./obj/encrypt.o 
 
-# Link object files into the executable
-$(EXEC): $(OBJ)
-	$(CC) $(OBJ) -o $(EXEC)
+./obj/decrypt.o : ./src/decrypt.c ./inc/cryptoMagic.h
+	cc -c ./src/decrypt.c -o ./obj/decrypt.o 
 
-# Compile cryptoMagic.c (main file)
-$(OBJDIR)/cryptoMagic.o: $(SRCDIR)/cryptoMagic.c $(INCDIR)/cryptoMagic.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/cryptoMagic.c -o $(OBJDIR)/cryptoMagic.o
+# =======================================================
+# Other targets
+# =======================================================
+all : ./bin/cryptoMagic
 
-# Compile decrypt.c
-$(OBJDIR)/decrypt.o: $(SRCDIR)/decrypt.c $(INCDIR)/cryptoMagic.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/decrypt.c -o $(OBJDIR)/decrypt.o
-
-# Compile encrypt.c
-$(OBJDIR)/encrypt.o: $(SRCDIR)/encrypt.c $(INCDIR)/cryptoMagic.h
-	$(CC) $(CFLAGS) -c $(SRCDIR)/encrypt.c -o $(OBJDIR)/encrypt.o
-
-# Clean rule
 clean:
-	rm -f $(OBJ) $(EXEC)
+	rm -f ./bin/*
+	rm -f ./obj/*.o
